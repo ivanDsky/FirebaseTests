@@ -70,6 +70,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         persons
             .whereGreaterThanOrEqualTo("age",f)
             .whereLessThanOrEqualTo("age",t)
+            .orderBy("age")
             .get()
             .addOnSuccessListener {
                 val str = StringBuilder()
