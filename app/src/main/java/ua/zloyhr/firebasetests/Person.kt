@@ -1,8 +1,8 @@
 package ua.zloyhr.firebasetests
 
 data class Person(
-    var firstName: String,
-    var secondName: String,
-    var age: Int,
+    var firstName: String = "No name",
+    var secondName: String = "No second name",
+    var age: Int = -1
 ) {
 }
