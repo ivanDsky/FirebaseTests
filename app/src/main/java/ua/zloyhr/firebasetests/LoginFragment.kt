@@ -1,15 +1,11 @@
 package ua.zloyhr.firebasetests
 
 import android.os.Bundle
-import android.view.Menu
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ua.zloyhr.firebasetests.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -20,7 +16,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
-        subscribeToRealtime()
+//        subscribeToRealtime()
 
         binding.apply {
             btnSend.setOnClickListener {
@@ -45,10 +41,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             btnGet.setOnClickListener {
                 getPerson()
             }
+            
+            rangeSlider.values = listOf(40f,70f)
         }
     }
 
     private fun subscribeToRealtime(){
+
         persons.addSnapshotListener { value, error ->
             if(error != null){
                 Toast.makeText(requireContext(), "Error while getting to db: ${error.message}", Toast.LENGTH_SHORT)
@@ -66,7 +65,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun getPerson() {
-        persons.get()
+        val f = binding.rangeSlider.values[0]
+        val t = binding.rangeSlider.values[1]
+        persons
+            .whereGreaterThanOrEqualTo("age",f)
+            .whereLessThanOrEqualTo("age",t)
+            .get()
             .addOnSuccessListener {
                 val str = StringBuilder()
                 for (doc in it.documents) {
