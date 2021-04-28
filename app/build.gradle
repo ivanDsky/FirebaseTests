@@ -1,44 +1,92 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
 
-android {
-    compileSdk 30
-    buildToolsVersion "30.0.3"
+ plugins {
+     id 'com.android.application'
+     id 'kotlin-android'
+     id 'kotlin-kapt'
+     id 'kotlin-parcelize'
+     id 'dagger.hilt.android.plugin'
+     id 'androidx.navigation.safeargs.kotlin'
+     id 'com.google.gms.google-services'
+ }
 
-    defaultConfig {
-        applicationId "ua.zloyhr.firebasetests"
-        minSdk 21
-        targetSdk 30
-        versionCode 1
-        versionName "1.0"
+ android {
+     compileSdk 30
+     buildToolsVersion "30.0.3"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+     defaultConfig {
+         applicationId "ua.zloyhr.newsnow"
+         minSdk 21
+         targetSdk 30
+         versionCode 1
+         versionName "1.0"
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-}
+         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+     }
 
-dependencies {
+     buildFeatures{
+         viewBinding true
+     }
 
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-}
+     buildTypes {
+         release {
+             minifyEnabled false
+             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+         }
+     }
+     compileOptions {
+         sourceCompatibility JavaVersion.VERSION_1_8
+         targetCompatibility JavaVersion.VERSION_1_8
+     }
+     kotlinOptions {
+         jvmTarget = '1.8'
+     }
+ }
+
+ dependencies {
+
+     implementation 'androidx.core:core-ktx:1.3.2'
+     implementation 'androidx.appcompat:appcompat:1.2.0'
+     implementation 'com.google.android.material:material:1.3.0'
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+     implementation 'com.google.firebase:firebase-firestore:22.1.2'
+     testImplementation 'junit:junit:4.+'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+
+     //Dagger-Hilt
+     implementation "com.google.dagger:hilt-android:$hilt_version"
+     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+     //Paging
+     def paging_version = "2.1.2"
+     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+     // Navigation
+     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+     // Feature module Support
+     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+     //Room
+     def room_version = "2.3.0"
+     implementation "androidx.room:room-runtime:$room_version"
+     kapt "androidx.room:room-compiler:$room_version"
+     // optional - Kotlin Extensions and Coroutines support for Room
+     implementation "androidx.room:room-ktx:$room_version"
+
+     implementation 'com.google.android.gms:play-services:12.0.1'
+//     //Retrofit
+//     def retrofit_version = "2.9.0"
+//     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+//     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+//     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+//
+//     //Glide
+//     def glide_version = "4.12.0"
+//     implementation "com.github.bumptech.glide:glide:$glide_version"
+//     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+ }
